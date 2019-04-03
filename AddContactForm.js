@@ -28,11 +28,25 @@ export default class AddContactForm extends React.Component {
   }
 
   handleNameChange = name => {
-    this.setState({name})
+    this.setState({name}, this.validateForm)
+
   }
 
   handlePhoneChange = phone => {
-    this.setState({phone})
+    //check if it's a number && smaller than 10
+    if (+phone >= 0 && phone.length <= 10){
+    this.setState({phone}, this.validateForm)
+    }
+  }
+
+  validateForm = () => {
+    if(this.state.name.length > 3 && +this.state.phone >= 0 && this.state.phone.length === 10){
+      return this.setState({isFormValid: true})
+    }
+    else{
+      return this.setState({isFormValid: false})
+    }
+
   }
   
   handleSubmit = () =>{
@@ -57,6 +71,7 @@ export default class AddContactForm extends React.Component {
         />
         <Button 
         onPress={this.handleSubmit}
+        disabled={!this.state.isFormValid}
         title="Submit" />
       </View>
     )
