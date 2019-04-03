@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, StyleSheet, TextInput, View} from 'react-native'
+import {Button, StyleSheet, TextInput, View, KeyboardAvoidingView} from 'react-native'
 import {Constants} from 'expo'
 
 const styles = StyleSheet.create({
@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: Constants.statusBarHeight,
+    justifyContent: 'center',
   },
   input: {
     borderWidth: 1,
@@ -55,7 +56,8 @@ export default class AddContactForm extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      //KeyboardAvoidingView helps to manage short forms
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <TextInput
           style={styles.input}
           value={this.state.name}
@@ -68,12 +70,12 @@ export default class AddContactForm extends React.Component {
           value={this.state.phone}
           onChangeText={this.handlePhoneChange}
           placeholder="Phones"
-        />
+        />      
         <Button 
         onPress={this.handleSubmit}
         disabled={!this.state.isFormValid}
         title="Submit" />
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
