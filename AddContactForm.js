@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button, StyleSheet, TextInput, View, KeyboardAvoidingView} from 'react-native'
 import {Constants} from 'expo'
+import { compareNames } from './contacts';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +42,8 @@ export default class AddContactForm extends React.Component {
   }
 
   validateForm = () => {
-    if(this.state.name.length > 3 && +this.state.phone >= 0 && this.state.phone.length === 10){
+    const names = this.state.name.split(' ')
+    if(this.state.name.length > 3 && +this.state.phone >= 0 && this.state.phone.length === 10 && names.length >= 2 && names[0] && names[1].length>=1){
       return this.setState({isFormValid: true})
     }
     else{
